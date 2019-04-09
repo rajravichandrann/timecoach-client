@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
+import Instructions from './components/Instructions';
 import Estimates from './components/Estimates';
 import Activities from './components/Activities';
 import Results from './components/Results';
@@ -17,7 +18,8 @@ class App extends Component {
         <Layout>
           <Router>
             <Switch>
-              <Route path="/" component={Estimates} exact />
+              <Route path="/" component={Instructions} exact />
+              <Route path="/estimates" component={Estimates} />
               <Route path="/activities" component={Activities} />
               <Route path="/results" component={Results} />
               <Route component={Errors} />

@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const Estimates = () => {
-    return (
-        <div>
-            <p>Estimates</p>
-        </div>
-    );
-};
+class Estimates extends Component {
+
+    render() {
+        return (
+            <div>
+                <p>Estimates</p>
+            </div>
+        );
+    }
+}
 
 export default Estimates;

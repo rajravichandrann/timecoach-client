@@ -1,0 +1,86 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 2 (0x2)
+    Signature Algorithm: sha256WithRSAEncryption
+        Issuer: CN=devcert
+        Validity
+            Not Before: Mar 29 16:31:46 2019 GMT
+            Not After : May 28 16:31:46 2038 GMT
+        Subject: CN=gaurav.cals.dev
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:ba:a7:78:13:17:4c:67:d3:d2:0a:c1:4a:7b:ea:
+                    18:69:b1:7b:49:67:3d:bd:fd:a4:8f:c8:8e:0d:61:
+                    2e:ed:09:be:41:b2:2a:c4:2f:6e:02:e9:da:34:3b:
+                    5f:20:08:d2:f5:90:fa:67:31:2e:35:b8:73:72:3a:
+                    b0:8b:30:a5:07:c7:f7:e8:a5:63:ae:30:f3:4f:34:
+                    dc:f6:22:b4:64:9c:31:1c:8f:b1:ed:c2:67:d2:4d:
+                    52:05:91:74:38:d4:bd:c9:92:2f:e8:60:9c:af:b1:
+                    cf:07:6f:71:0f:41:2c:1e:26:9a:f4:f5:6d:30:e0:
+                    e1:93:55:cd:52:4f:d7:99:67:49:76:83:a5:e5:93:
+                    78:e0:39:f7:89:53:70:98:9a:bb:ed:27:51:83:35:
+                    fd:99:5a:20:43:e1:ed:36:e8:67:4e:e8:bc:ce:be:
+                    fe:17:90:10:75:1a:e7:0c:bf:38:e6:ac:a5:c4:2f:
+                    50:30:d7:98:18:bb:19:a1:cd:c4:d7:42:9e:6b:b8:
+                    22:e6:23:65:e1:9d:d9:ab:30:99:8d:b4:07:d2:f0:
+                    3b:27:93:35:84:12:2f:1b:a2:2a:f0:91:c8:41:fd:
+                    a8:ea:99:fb:a1:36:70:70:e9:7e:50:07:40:9c:c4:
+                    e0:ef:52:8d:c3:22:83:15:15:05:73:1f:ab:43:2d:
+                    af:17
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: critical
+                CA:FALSE
+            X509v3 Subject Key Identifier: 
+                95:4E:40:B0:FC:36:40:69:34:14:3C:CA:EA:B3:B6:77:16:DE:9C:CC
+            X509v3 Authority Key Identifier: 
+                keyid:C4:08:A0:EE:A3:73:C7:F6:36:A6:9D:FA:E5:E5:8D:71:54:12:6F:2A
+                DirName:/CN=devcert
+                serial:CF:CF:15:B7:FA:A0:FE:4E
+
+            X509v3 Key Usage: critical
+                Digital Signature, Key Encipherment
+            X509v3 Extended Key Usage: 
+                TLS Web Server Authentication
+            X509v3 Subject Alternative Name: 
+                DNS:*.gaurav.cals.dev, DNS:gaurav.cals.dev
+    Signature Algorithm: sha256WithRSAEncryption
+         2d:10:b3:6a:09:b1:01:ec:41:95:ff:7c:7d:b3:7d:8e:01:70:
+         44:1a:14:e8:97:5b:59:a3:67:e7:c1:10:ac:0b:ab:44:cf:b8:
+         73:48:a1:c7:ac:97:32:b6:9a:40:b7:b0:67:80:4f:c9:89:47:
+         bf:51:22:50:f1:76:10:07:6b:37:ca:1d:d4:d5:ff:dc:58:c5:
+         a2:f6:9a:c4:92:84:2f:4e:10:02:0a:ad:1f:3e:5b:65:3f:9a:
+         ba:25:9f:1e:56:99:99:1a:90:ef:1b:a5:b6:d7:ee:02:04:b0:
+         e0:16:44:2a:31:1f:f7:de:9a:9c:dc:38:95:ba:b3:53:56:8c:
+         23:19:87:a2:6f:39:31:57:8f:08:de:70:a2:af:25:bb:ff:e6:
+         3e:cf:2c:33:9a:2d:81:9e:32:44:17:60:83:1c:85:8c:a0:16:
+         c0:c6:e5:06:c7:88:f0:c9:7b:30:a8:22:dc:75:75:2e:5a:3a:
+         5c:57:10:5a:ca:cc:0d:8d:76:c7:77:28:68:90:60:ca:9b:9e:
+         b8:34:9a:70:26:57:bd:0b:1f:0f:d3:01:b5:14:c5:5a:f2:e7:
+         36:b7:41:8d:10:87:5a:98:7f:80:66:83:13:fa:d9:83:e6:57:
+         16:ab:c8:4e:02:34:76:7d:0b:cd:85:40:4a:ff:e5:7b:a2:4e:
+         cf:10:32:ba
+-----BEGIN CERTIFICATE-----
+MIIDcDCCAligAwIBAgIBAjANBgkqhkiG9w0BAQsFADASMRAwDgYDVQQDDAdkZXZj
+ZXJ0MB4XDTE5MDMyOTE2MzE0NloXDTM4MDUyODE2MzE0NlowGjEYMBYGA1UEAwwP
+Z2F1cmF2LmNhbHMuZGV2MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
+uqd4ExdMZ9PSCsFKe+oYabF7SWc9vf2kj8iODWEu7Qm+QbIqxC9uAunaNDtfIAjS
+9ZD6ZzEuNbhzcjqwizClB8f36KVjrjDzTzTc9iK0ZJwxHI+x7cJn0k1SBZF0ONS9
+yZIv6GCcr7HPB29xD0EsHiaa9PVtMODhk1XNUk/XmWdJdoOl5ZN44Dn3iVNwmJq7
+7SdRgzX9mVogQ+HtNuhnTui8zr7+F5AQdRrnDL845qylxC9QMNeYGLsZoc3E10Ke
+a7gi5iNl4Z3ZqzCZjbQH0vA7J5M1hBIvG6Iq8JHIQf2o6pn7oTZwcOl+UAdAnMTg
+71KNwyKDFRUFcx+rQy2vFwIDAQABo4HIMIHFMAwGA1UdEwEB/wQCMAAwHQYDVR0O
+BBYEFJVOQLD8NkBpNBQ8yuqztncW3pzMMEIGA1UdIwQ7MDmAFMQIoO6jc8f2Nqad
++uXljXFUEm8qoRakFDASMRAwDgYDVQQDDAdkZXZjZXJ0ggkAz88Vt/qg/k4wDgYD
+VR0PAQH/BAQDAgWgMBMGA1UdJQQMMAoGCCsGAQUFBwMBMC0GA1UdEQQmMCSCESou
+Z2F1cmF2LmNhbHMuZGV2gg9nYXVyYXYuY2Fscy5kZXYwDQYJKoZIhvcNAQELBQAD
+ggEBAC0Qs2oJsQHsQZX/fH2zfY4BcEQaFOiXW1mjZ+fBEKwLq0TPuHNIoceslzK2
+mkC3sGeAT8mJR79RIlDxdhAHazfKHdTV/9xYxaL2msSShC9OEAIKrR8+W2U/mrol
+nx5WmZkakO8bpbbX7gIEsOAWRCoxH/fempzcOJW6s1NWjCMZh6JvOTFXjwjecKKv
+Jbv/5j7PLDOaLYGeMkQXYIMchYygFsDG5QbHiPDJezCoItx1dS5aOlxXEFrKzA2N
+dsd3KGiQYMqbnrg0mnAmV70LHw/TAbUUxVry5za3QY0Qh1qYf4BmgxP62YPmVxar
+yE4CNHZ9C82FQEr/5XuiTs8QMro=
+-----END CERTIFICATE-----
