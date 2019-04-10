@@ -1,9 +1,7 @@
 import React from 'react';
 import {Chart} from 'react-google-charts';
 
-const HourMinutes = 60;
-//const DayMinues = HourMinutes * 24;
-
+  const MsPerDay = 1000 * 60 * 60 * 24;
   const Results = () => {
     let estimates = ResultTestClass.getEstimates();
     let actuals = ResultTestClass.getActivities();
@@ -38,6 +36,11 @@ const HourMinutes = 60;
     );
   };
 
+  /*
+      Assumptions:
+      1. There is always one and only one estimate per activity_id.
+      2. There
+   */
   const getInnerArray = function(activityId, estimates, activities){
   //  let innerArray = [];
     let activity;
@@ -61,22 +64,29 @@ const HourMinutes = 60;
 
   export default Results;
 
+const HourMinutes = 60;
+const MsPerHour = 1000 * 60 * 60;
 const actCount = 6;
+const estimateDay = new Date("April 09, 2019 00:00:00").getTime();
+
 class ResultTestClass {
 
   static getActivities(){
     let activitiesArray = [];
+//    let now = new Date().getTime();
     for(let activityId = 0; activityId < actCount; activityId++)
     {
-      for(let day=1; day < 8; day++)
+      if(activityId === 2)
+        continue;
+      for(let day=0; day < 7; day++)
       {
         let hours = (activityId + 1) + 5;
         activitiesArray.push({
-          estimated_date: "2019-04-0"+day,
+          estimated_date: estimateDay, //"2019-04-0"+day,
           activity_name: "activity-"+activityId,
           student_email: "time.coach@wgu.edu",
-          updatedAt: "2019-04-09 18:13:18",
-          logged_time: (HourMinutes * hours) + (day * 10),
+          updatedAt: estimateDay + (MsPerDay * (day + 1)) + (MsPerHour * (day + 1)), //"2019-04-09 18:13:18",
+          logged_time: (HourMinutes * hours) + ((day +1) * 10),
           student_id: "555",
           activities_id: "333",
           activity_id: activityId
@@ -88,15 +98,16 @@ class ResultTestClass {
 
   static getEstimates(){
     let estimatesArray = [];
+//    let now = new Date().getTime();
     for(let activityId = 0; activityId < actCount; activityId++)
     {
       let hours = (activityId +1) + 5;
       estimatesArray.push({
-            estimated_date: "2019-02-06",
+            estimated_date: estimateDay, //"2019-02-0"+day,
             activity_name: "activity-"+activityId,
             estimate_id: "111",
             student_email: "time.coach@wgu.edu",
-            updatedAt: "2019-04-08 17:48:48",
+            updatedAt: estimateDay + (MsPerHour * (activityId +1)), //"2019-04-08 17:48:48",
             student_id: "555",
             estimated_time: HourMinutes * hours,
             activity_id: activityId
