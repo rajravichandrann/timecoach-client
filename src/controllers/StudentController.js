@@ -2,6 +2,8 @@ import StudentDispatcher from '../dispatchers/StudentDispatcher';
 
 async function validateCreateStudent(args){
     
+    let studentCheck = false;
+    
     try {
         const student = {
             student_email: args['email'],
@@ -23,6 +25,7 @@ async function validateCreateStudent(args){
                 //Check if new student has been created successfully
                 if(createStudent.data.student_id){
                     console.log(`Student has been created with Student_id: `, createStudent.data.student_id);
+                    studentCheck = true;
                 } else {
                     console.error(`Student was not created successfully`);
                 }
@@ -32,6 +35,8 @@ async function validateCreateStudent(args){
         }
     } catch (error) {
         console.log(error);
+    } finally {
+        return studentCheck;
     }
 }
 

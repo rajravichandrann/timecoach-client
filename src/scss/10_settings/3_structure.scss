@@ -1,0 +1,27 @@
+// Content width
+$container-max-widths: (
+  xl: 1250px
+);
+
+$paddingWidth: 0px;
+
+// Break Points
+$grid-breakpoints: (
+  ss: 0,
+  xs: 376px,
+  sm: 601px,
+  md: 769px,
+  lg: 1000px,
+  xl: 1121px,
+  xxl: 1600px
+);
+
+// Columns
+$grid-columns: 12;
+
+$grid-gutter-width-base: 20px;
+
+body {
+  overflow-x: hidden;
+  background-color: $body;
+}

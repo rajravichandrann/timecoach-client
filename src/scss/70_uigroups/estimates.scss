@@ -1,0 +1,97 @@
+.app-container {
+  max-width: 805px;
+  margin: 0 auto;
+  > .estimate-container {
+    padding: 30px 18px;
+  }
+}
+
+.estimate-container {
+  > .title-container {
+    justify-content: space-between;
+  }
+  > .estimate-list {
+    text-align: left;
+    list-style: none;
+    padding: 15px 0 0;
+    max-width: 435px;
+    margin: 0 auto;
+    display: none;
+    &.-animate {
+      display: block;
+    }
+  }
+}
+
+.estimate-list {
+  > .list-item {
+    display: none;
+    opacity: 0;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    top: 50px;
+    transition: transform 0.8s ease, opacity 0.8s ease;
+    &.-animate {
+      display: flex;
+    }
+    &.-fade-in {
+      opacity: 1;
+      transform: translateY(-50px);
+    }
+  }
+}
+
+.list-item {
+  > .add-estimate {
+    cursor: pointer;
+    font-weight: 600;
+    font-family: $main-font;
+    color: $blue;
+    font-size: 16px;
+    text-transform: uppercase;
+    text-align: right;
+    transition: color 0.15s ease-in-out;
+    padding: 20px 0;
+    &:hover {
+      color: darken($blue, 15%);
+    }
+    &.-isSet {
+      color: $darkerGray;
+      font-size: 18px;
+      text-transform: none;
+      font-weight: 400;
+      cursor: default;
+    }
+  }
+  > .name {
+    padding: 20px 0;
+  }
+  > .create-new {
+    position: relative;
+    left: -25px;
+    background-color: transparent;
+    color: $blue;
+    font-family: $main-font;
+    font-weight: 600;
+    font-size: uppercase;
+    padding: 10px 25px 10px 35px;
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out;
+    max-width: 175px;
+    width: 100%;
+    &:before {
+      position: absolute;
+      left: 25px;
+      top: 50%;
+      transform: translateY(-7.5px);
+      content: "";
+      background-image: url("./assets/icons/create-new-icon.svg");
+      height: 15px;
+      width: 15px;
+    }
+    &.-capitalize {
+      text-transform: uppercase;
+    }
+  }
+}

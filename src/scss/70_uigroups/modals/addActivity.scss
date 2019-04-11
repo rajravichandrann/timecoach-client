@@ -1,0 +1,296 @@
+.-add-activity {
+    transition: opacity .25s ease-in-out;
+    > .modal {
+        border-top: 8px solid $blue !important;
+        top: 335px;
+        padding-bottom: 0;
+        -webkit-transition: -webkit-transform .8s ease;
+        transition: -webkit-transform .8s ease;
+        transition: transform .8s ease;
+        transition: transform .8s ease, -webkit-transform .8s ease;
+        &.-isAnimated {
+            transform: translateY(-50px);
+        }
+        > .title {
+            position: relative;
+            color: $titleBlue;
+            font-size: 18px;
+            font-weight: 700;
+            text-align: center;
+            width: 100%;
+            padding: 15px 0;
+            border-bottom: 1px solid $lightGray;
+            margin: 0;
+        }
+    }
+}
+
+.modal {
+    > .time-container {
+        padding: 0 30px 30px;
+    }
+    > .list-title {
+        &.-date {
+            position: relative;
+            text-align: center;
+            color: $blue;
+            margin-top: 15px;
+            &:before {
+                content: '';
+                background: url('./assets/icons/calendar-icon-blue.svg');
+                height: 19px;
+                width: 18px;
+                position: absolute;
+                left: 30px;
+                top: 50%;
+                transform: translateY(-9px);
+            }
+        }
+    }
+    > .close {
+        position: absolute;
+        right: 22px;
+        height: 18px;
+        width: 18px;
+        top: 25px;
+        padding: 10px;
+        transform: translateY(-9px);
+        cursor: pointer;
+        &:after {
+            content: '';
+            top: 50%;
+            left:0px;
+            height: 2px;
+            width: 18px;
+            background-color: $darkerGray;
+            position: absolute;
+            transform: rotate(-45deg);
+        }
+        &:before {
+            content: '';
+            top: 50%;
+            left: 0px;
+            height: 2px;
+            width: 18px;
+            background-color: $darkerGray;
+            position: absolute;
+            transform: rotate(45deg);
+        }
+    }
+    > .totals-container {
+        background-color: $blue;
+        border-top-right-radius: 8px;
+        border-top-left-radius: 8px;
+    }
+    > .activity-container {
+        padding: 0 0 ;
+    }
+}
+
+.totals-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 50px;
+    > .total {
+        padding: 0 10px 5px;
+        color: $white;
+        font-size: 18px;
+        font-weight: 400;
+    }
+}
+
+.total {
+    > .time {
+        font-weight: 600;
+        font-size: 18px;
+        padding-right: 10px;
+    }
+}
+
+.activity-container {
+    > .activity-list {
+        text-align: left;
+        padding: 0;
+        width: 100%;
+    }
+}
+
+.activity-list {
+    > .list-item {
+        position: relative;
+        list-style: none;
+        width: 100%;
+        padding: 10px 30px 10px 85px;
+        cursor: pointer;
+        border-top: 1px solid $lightGray;
+        transition: background-color .25s ease-in-out;
+        &:hover {
+            background-color: rgba($darkBlue, .08);
+        }
+        &.-hidden {
+            display: none;
+        }
+        &.-list-subTitle {
+            border-top: none;
+            text-align: left;
+            font-size: 16px;
+            color: $black;
+            padding: 10px 30px;
+        }
+        &.-sleep {
+            &:before {
+                content: '';
+                height: 24px;
+                width: 24px;
+                background: url('./assets/icons/Sleep_Icon.svg');
+                background-size: contain;
+                position: absolute;
+                left: 30px;
+                top: 50%;
+                transform: translateY(-12px);
+            }
+        }
+        &.-school {
+            &:before {
+                content: '';
+                height: 24px;
+                width: 24px;
+                background: url('./assets/icons/School_Icon.svg') no-repeat center center;
+                background-size: contain;
+                position: absolute;
+                left: 30px;
+                top: 50%;
+                transform: translateY(-12px);
+            }
+        }
+        &.-job {
+            &:before {
+                content: '';
+                height: 24px;
+                width: 24px;
+                background: url('./assets/icons/Job_Icon.svg') no-repeat center center;
+                background-size: contain;
+                position: absolute;
+                left: 30px;
+                top: 50%;
+                transform: translateY(-12px);
+            }
+        }
+        &.-social {
+            &:before {
+                content: '';
+                height: 24px;
+                width: 24px;
+                background: url('./assets/icons/SocialMedia_Icon.svg');
+                background-size: contain;
+                position: absolute;
+                left: 30px;
+                top: 50%;
+                transform: translateY(-12px);
+            }
+        }
+        &.-tv {
+            &:before {
+                content: '';
+                height: 24px;
+                width: 24px;
+                background: url('./assets/icons/Videos_Icon.svg') no-repeat center center;
+                background-size: contain;
+                position: absolute;
+                left: 30px;
+                top: 50%;
+                transform: translateY(-12px);
+            }
+        }
+        &.-exercise {
+            &:before {
+                content: '';
+                height: 24px;
+                width: 24px;
+                background: url('./assets/icons/Exercise_Icon.svg') no-repeat center center;
+                background-size: contain;
+                position: absolute;
+                left: 30px;
+                top: 50%;
+                transform: translateY(-12px);
+            }
+        }
+        &.-misc {
+            &:before {
+                content: '';
+                height: 24px;
+                width: 24px;
+                background: url('./assets/icons/HangingOut_Icon.svg') no-repeat center center;
+                background-size: contain;
+                position: absolute;
+                left: 30px;
+                top: 50%;
+                transform: translateY(-12px);
+            }
+        }
+        &.-isActive {
+            &:before {
+                content: '';
+                height: 24px;
+                width: 24px;
+                background: url('./assets/icons/checkmark_Icon-blue.svg') no-repeat center center;
+                background-size: contain;
+                position: absolute;
+                left: 30px;
+                top: 50%;
+                transform: translateY(-12px); 
+            }
+        }
+        &:before {
+            content: '';
+            height: 24px;
+            width: 24px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+        &.-title {
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+    }
+}
+
+.list-item {
+    &.-title {
+        text-align: left;
+        padding-bottom: 0;
+    }
+    > .hour-input {
+        width: 100%;
+        padding: 10px 0 10px 5px;
+        border-radius: 8px;
+        border: 1px solid $darkGray;
+        &.-hasError {
+            background-color: $lightRed;
+            color: $red;
+        }
+    }
+    > .min-input {
+        width: 100%;
+        padding: 10px 0 10px 5px;
+        border-radius: 8px;
+        border: 1px solid $darkGray;
+        &.-hasError {
+            background-color: $lightRed;
+            color: $red;
+        }
+    }
+    > .error-msg {
+        color: $red;
+        font-size: 12px;
+        display: block;
+        text-align: left;
+        &.-hidden {
+            display: none;
+        }
+    }
+}

@@ -1,0 +1,43 @@
+@if variable-exists(grid-columns) {
+	// Columns
+	.container {
+		@include make-container;
+    > .-hidden-offscreen {
+        clip-path: inset(100%);
+        clip: rect(1px 1px 1px 1px); /* IE 6/7 */
+        clip: rect(1px, 1px, 1px, 1px);
+        height: 1px;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap; /* added line */
+        width: 1px;
+    }
+	}
+	.row {
+		@include make-row;
+    &.-no-margin {
+      margin: 0;
+    }
+		&.collapse {
+			margin: 0;
+		}
+    &.-center {
+      justify-content: center;
+    }
+	}
+	.no-gutters {
+		margin: {
+			left: 0;
+			right: 0;
+		}
+
+		> .col {
+			padding: {
+				left: 0;
+				right: 0;
+			}
+		}
+	}
+
+	@include make-grid-columns;
+}

@@ -1,0 +1,229 @@
+.-activity-time {
+    transition: opacity .25s ease-in-out;
+    > .modal {
+        border-top: 8px solid $blue !important;
+        top: 335px;
+        padding-bottom: 0;
+        -webkit-transition: -webkit-transform .8s ease;
+        transition: -webkit-transform .8s ease;
+        transition: transform .8s ease;
+        transition: transform .8s ease, -webkit-transform .8s ease;
+        &.-isAnimated {
+            transform: translateY(-50px);
+        }
+        > .title {
+            position: relative;
+            color: $titleBlue;
+            font-size: 18px;
+            font-weight: 700;
+            text-align: center;
+            width: 100%;
+            padding: 15px 0;
+            border-bottom: 1px solid $lightGray;
+            margin: 0;
+        }
+    }
+}
+
+.modal {
+    > .time-container {
+        padding: 0 30px 30px;
+    }
+    > .close {
+        position: absolute;
+        right: 22px;
+        height: 18px;
+        width: 18px;
+        top: 25px;
+        padding: 10px;
+        transform: translateY(-9px);
+        cursor: pointer;
+        &:after {
+            content: '';
+            top: 50%;
+            left:0px;
+            height: 2px;
+            width: 18px;
+            background-color: $darkerGray;
+            position: absolute;
+            transform: rotate(-45deg);
+        }
+        &:before {
+            content: '';
+            top: 50%;
+            left: 0px;
+            height: 2px;
+            width: 18px;
+            background-color: $darkerGray;
+            position: absolute;
+            transform: rotate(45deg);
+        }
+    }
+    > .totals-container {
+        background-color: $blue;
+        border-top-right-radius: 8px;
+        border-top-left-radius: 8px;
+    }
+}
+
+.totals-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 50px;
+    > .total {
+        padding: 0 10px 5px;
+        color: $white;
+        font-size: 18px;
+        font-weight: 400;
+    }
+}
+
+.total {
+    > .time {
+        font-weight: 600;
+        font-size: 18px;
+        padding-right: 10px;
+    }
+}
+
+.time-container {
+    &.-activities-form {
+        > .time-list {
+            &.-date-list {
+                display: block;
+                text-align: center;
+                padding: 10px;
+            }
+        }
+    }
+    > .time-list {
+        text-align: center;
+        padding: 0;
+        width: 50%;
+        &.-date-list {
+            display: none;
+        }
+        &.-hour-list {
+            text-align: center;
+            padding: 10px 10px;
+            margin: 0;
+        }
+        &.-minute-list {
+            text-align: center;
+            padding: 10px 10px;
+            margin: 0;
+        }
+    }
+}
+
+.time-list {
+    > .list-item {
+        position: relative;
+        list-style: none;
+        width: 100%;
+        padding: 10px 0;
+        cursor: pointer;
+        &.-isActive {
+            &:before {
+                content: '';
+                height: 1px;
+                background-color: $blue;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+            }
+            &:after {
+                content: '';
+                height: 1px;
+                background-color: $blue;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+            }
+        }
+        &.-title {
+            font-size: 14px;
+            font-weight: 400;
+        }
+    }
+}
+
+.list-item {
+    &.-title {
+        text-align: left;
+        padding-bottom: 0;
+    }
+    &.-date {
+        > .error-msg {
+            display: none;
+            &.-isVisible {
+                display: block;
+            }
+        }
+    }
+    > .hour-input {
+        width: 100%;
+        padding: 10px 0 10px 5px;
+        border-radius: 8px;
+        border: 1px solid $darkGray;
+        &.-hasError {
+            background-color: $lightRed;
+            color: $red;
+        }
+    }
+    > .date-input {
+        width: 100%;
+        padding: 10px 0 10px 5px;
+        border-radius: 8px;
+        border: 1px solid $darkGray;
+        &::placeholder {
+            color: $darkGray;
+        }
+        &::-webkit-datetime-edit {
+            color: $darkGray;
+        }
+        &.-isValid {
+            &::-webkit-datetime-edit {
+                color: $black;
+            }
+        }
+        &.-hasError {
+            background-color: rgba($red, .3);
+            &::-webkit-datetime-edit {
+                color: $black;
+            }
+        }
+    }
+    > .error-msg {
+        display: none;
+        color: $red;
+        font-size: 10px;
+        text-align: left;
+        padding: 5px 0;
+        &.-isVisible {
+            display: block;
+        }
+    }
+    > .min-input {
+        width: 100%;
+        padding: 10px 0 10px 5px;
+        border-radius: 8px;
+        border: 1px solid $darkGray;
+        &.-hasError {
+            background-color: $lightRed;
+            color: $red;
+        }
+    }
+    > .error-msg {
+        color: $red;
+        font-size: 12px;
+        display: block;
+        text-align: left;
+        &.-hidden {
+            display: none;
+        }
+    }
+}
