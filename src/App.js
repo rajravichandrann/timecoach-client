@@ -8,6 +8,7 @@ import Errors from './components/Errors';
 import Layout from './components/Layout';
 import NavigationBar from './components/NavigationBar';
 
+const astudent ={'name':'chad adams', 'id':'12324'};
 
 class App extends Component {
   render() {
@@ -19,7 +20,7 @@ class App extends Component {
             <Switch>
               <Route path="/" component={Estimates} exact />
               <Route path="/activities" component={Activities} />
-              <Route path="/results" component={Results} />
+              <Route path="/results" render={(props) => <Results {...props} student={astudent} />}/>
               <Route component={Errors} />
             </Switch>
           </Router>
