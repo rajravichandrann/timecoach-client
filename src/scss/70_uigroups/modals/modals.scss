@@ -1,0 +1,33 @@
+.overlay {
+  background-color: rgba(255, 255, 255, 0.3) !important;
+  position: absolute;
+  top: 0;
+  display: none;
+  opacity: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: -1;
+  transition: opacity 0.8s ease, top 0.8s ease;
+  &.-animate {
+    display: block;
+  }
+  &.-isActive {
+    opacity: 1;
+    z-index: 10;
+  }
+  > .modal {
+    display: block;
+    position: relative;
+    background-color: $white;
+    border-radius: none;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+    border: none;
+    max-width: 312px;
+    margin: 0 auto;
+    -webkit-transition: -webkit-transform 0.8s ease;
+    transition: -webkit-transform 0.8s ease;
+    transition: transform 0.8s ease;
+    transition: transform 0.8s ease, -webkit-transform 0.8s ease;
+  }
+}

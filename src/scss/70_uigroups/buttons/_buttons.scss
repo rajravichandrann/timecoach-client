@@ -1,0 +1,114 @@
+.button-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 10px 30px;
+    &.-right {
+        justify-content: flex-end;
+    }
+    &.-estimates {
+        color: $white;
+        text-transform: uppercase;
+        padding: 0 30px 0 20px;
+    }
+    &.-instructions {
+        position: absolute;
+        bottom: 30px;
+        right: 0;
+        width: 100%;
+    }
+    &.-activities {
+        padding: 10px 0 10px 30px;
+    }
+}
+
+.-estimates {
+    > .btn {
+        text-transform: uppercase;
+        font-weight: 600;
+        padding: 16px 0;
+    }
+}
+
+.-activities {
+    > .btn {
+        position: relative;
+        font-size: 18px;
+        text-transform: uppercase;
+        border-radius: 10px;
+        text-align: center;
+        padding: 10px 15px 10px 30px;
+        font-weight: 600;
+        &:before {
+            content: '';
+            background: url('./assets/icons/add-icon.svg') no-repeat center center;
+            height: 18px;
+            width: 18px;
+            font-size: 28px;
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-9px);
+            color: $white;
+            font-weight: 600;
+        }
+    }
+}
+
+.btn {
+    max-width: 118px;
+    width: 100%;
+    border: none;
+    padding: 12px 0;
+    cursor: pointer;
+    transition: background-color .15s ease-in-out;
+    text-align: center;
+    &.-hollow {
+        background-color: transparent;
+        border-radius: 10px;
+        &:hover {
+            background-color: rgba($darkBlue, .08);
+        }
+    }
+    &.-hidden {
+        display: none;
+    }
+    &.-modal-button {
+        border-radius: 15px;
+        text-transform: uppercase;
+        font-family: $main-font;
+        font-weight: 600;
+        cursor: button;
+    }
+    &.-filled-modalButton {
+        background-color: rgba($darkBlue, .08);
+        border-radius: 10px;
+        &:hover {
+            background-color: rgba($darkBlue, .17);
+        }
+    }
+    &.-large {
+        max-width: 320px;
+        width: 100%;
+    }
+    &.-medium {
+        max-width: 280px;
+        width: 100%;
+    }
+    &.-white {
+        color: $white;
+    }
+    &.-blue {
+        background-color: $blue;
+        color: $white;
+        &:hover {
+            background-color: $darkBlue;
+        }
+    }
+}

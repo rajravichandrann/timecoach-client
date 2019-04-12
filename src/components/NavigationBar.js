@@ -1,39 +1,32 @@
-import React from 'react';
-import { Nav, Navbar } from 'react-bootstrap';
-import styled from 'styled-components';
-
-const Styles = styled.div`
-    .navbar{
-        background-color: #005380;
-        width: 100%;
-        height: 45px;
-        text-align: center;
-    }
-
-    .navbar-brand, .navbar-nav .nav-link {
-        color: #fff;
-
-        &:hover {
-            color: white;
-        }
-    }
-`;
+import React from "react";
 
 const NavigationBar = () => {
-    return (
-        <Styles>
-            <Navbar expand="lg">
-                <Navbar.Brand href="/">Time Coach</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav"></Navbar.Collapse>
-                    <Nav className="ml-auto">
-                        <Nav.Item><Nav.Link href="/">Estimates</Nav.Link></Nav.Item>
-                        <Nav.Item><Nav.Link href="/activities">Activities</Nav.Link></Nav.Item>
-                        <Nav.Item><Nav.Link href="/results">Results</Nav.Link></Nav.Item>
-                    </Nav>
-            </Navbar>
-        </Styles>
-    );
+  return (
+    <nav className="timecoach-header">
+      <div className="row wrap">
+        <div className="col-sm-6 logo-container">
+          <a href="./" className="site-title">
+            <span className="clockIcon" />
+            Time Coach
+          </a>
+        </div>
+        <div className="nav col-sm-6">
+          {/* <Link to="app" className="menu-item -white">Estimate</Link>
+					<Link to="authors" className="menu-item -white">Activities</Link>
+					<Link to="about" className="menu-item -white">Results</Link> */}
+          <a href="/" className="menu-item -white">
+            Estimate
+          </a>
+          <a href="/activities" className="menu-item -white">
+            Activity
+          </a>
+          <a href="/results" className="menu-item -white">
+            Results
+          </a>
+        </div>
+      </div>
+    </nav>
+  );
 };
 
 export default NavigationBar;

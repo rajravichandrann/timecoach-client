@@ -1,0 +1,123 @@
+.timecoach-header {
+  background-color: $darkBlue;
+  width: 100%;
+  height: 45px;
+  text-align: center;
+  color: $white;
+  > .wrap {
+    max-width: 803px;
+    margin: 0 auto;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    height: 100%;
+    @media (max-width: 769px) {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      padding: 0 0 0 20px;
+    }
+  }
+}
+
+.wrap {
+  > .logo-container {
+    height: 100%;
+    text-align: left;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    @media (min-width: 769px) {
+      width: 50%;
+    }
+    @media (max-width: 768px) {
+      width: 40%;
+    }
+  }
+  > .nav {
+    height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    @media (min-width: 769px) {
+      width: 50%;
+    }
+    @media (max-width: 768px) {
+      width: 60%;
+      padding-right: 0;
+    }
+  }
+}
+
+.nav {
+  > .menu-item {
+    color: $white;
+    position: relative;
+    &:after {
+      content: "";
+      height: 2px;
+      width: 0;
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      background-color: $white;
+      transition: width 0.25s ease-in-out;
+    }
+    &:hover {
+      text-decoration: none;
+      &:after {
+        width: 100%;
+        background-color: $white;
+      }
+    }
+    &.-isActive {
+      font-weight: 600;
+      &:after {
+        width: 100%;
+        background-color: $white;
+      }
+    }
+  }
+}
+.site-title {
+  position: relative;
+  font-size: 18px;
+  color: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  > .clockIcon {
+    &:after {
+      content: "";
+      background: url("/images/icon-time.svg");
+      height: 14px;
+      width: 14px;
+      position: absolute;
+      left: -20px;
+      top: 50%;
+      -webkit-transform: translateY(-7px);
+      transform: translateY(-7px);
+    }
+  }
+}

@@ -1,0 +1,40 @@
+.overlay{
+    > .modal {
+        &.-instructions {
+            top: 155px;
+            min-height: 575px;
+            border-top: 8px solid $darkBlue;
+        }
+        &.-isAnimated {
+            transform: translateY(-50px);
+        }
+    }
+}
+
+.modal {
+    > .slide-container {
+        opacity: 0.0;
+        position: absolute;
+        transition: left .8 ease, right .8 ease;
+        padding: 30px 30px 112px;
+        left: 100%;
+        &.-isActive {
+            opacity: 1.0;
+            left: 0;
+            position: relative;
+        }
+        &.-prev {
+            right: 100%;
+        }
+    }
+}
+
+.slide-container {
+    > .slide-image {
+        margin-bottom: 20px;
+        width: 100%;
+    }
+    > .description {
+        margin: 20px 0 20px;
+    }
+}

@@ -1,30 +1,85 @@
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import Estimates from './components/Estimates';
-import Activities from './components/Activities';
-import Results from './components/Results';
-import Errors from './components/Errors';
-import Layout from './components/Layout';
-import NavigationBar from './components/NavigationBar';
+import Instructions from "./components/Instructions";
+import Estimates from "./components/Estimates";
+import Activities from "./components/Activities";
+import Results from "./components/Results";
+import Errors from "./components/Errors";
+import NavigationBar from "./components/NavigationBar";
 
-const astudent ={'name':'chad adams', 'id':'12324'};
+import queryString from "query-string";
+import StudentController from "./controllers/StudentController";
+import StudentDispatcher from "./dispatchers/StudentDispatcher";
+
+import "./App.css";
+
+const studentInfo = queryString.parse(window.location.search);
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      displayEstimates: false,
+      displayInstructions: false,
+      displayActivities: false,
+      displayResults: false
+    };
+
+    this.child = React.createRef();
+  }
+
+  async componentWillMount() {
+    let validateStudent = await StudentDispatcher.getStudent(studentInfo.email);
+
+    if (validateStudent.data.Count < 1) {
+      console.log("Student is here for the first time.");
+      let validateCreateStudent = await StudentController.validateCreateStudent(
+        studentInfo
+      );
+      if (validateCreateStudent) {
+        this.setState({
+          displayInstructions: true
+        });
+      }
+    } else {
+      console.log("Student was here!!!");
+      this.setState({
+        displayEstimates: true
+      });
+      this.setState({
+        displayInstructions: false
+      });
+    }
+  }
+
   render() {
     return (
       <React.Fragment>
         <NavigationBar />
-        <Layout>
-          <Router>
-            <Switch>
-              <Route path="/" component={Estimates} exact />
-              <Route path="/activities" component={Activities} />
-              <Route path="/results" render={(props) => <Results {...props} student={astudent} />}/>
-              <Route component={Errors} />
-            </Switch>
-          </Router>
-        </Layout>
+        <Router>
+          <Switch>
+            <Route
+              path="/"
+              component={Estimates}
+              exact
+              render={props => <Estimates {...props} student={studentInfo} />}
+            />
+            <Route
+              path="/activities"
+              component={Activities}
+              ref={this.child}
+              render={props => <Activities {...props} student={studentInfo} />}
+            />
+            <Route
+              path="/results"
+              component={Results}
+              render={props => <Results {...props} student={studentInfo} />}
+            />
+            <Route component={Errors} />
+          </Switch>
+          {this.state.displayInstructions ? <Instructions /> : null}
+        </Router>
       </React.Fragment>
     );
   }
