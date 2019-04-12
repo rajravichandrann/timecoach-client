@@ -61,19 +61,16 @@ class App extends Component {
           <Switch>
             <Route
               path="/"
-              component={Estimates}
               exact
               render={props => <Estimates {...props} student={studentInfo} />}
             />
             <Route
               path="/activities"
-              component={Activities}
               ref={this.child}
               render={props => <Activities {...props} student={studentInfo} />}
             />
             <Route
               path="/results"
-              component={Results}
               render={props => <Results {...props} student={studentInfo} />}
             />
             <Route component={Errors} />
