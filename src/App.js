@@ -9,16 +9,32 @@ import Errors from "./components/Errors";
 import NavigationBar from "./components/NavigationBar";
 
 import queryString from "query-string";
+import Cookies from 'universal-cookie';
 import StudentController from "./controllers/StudentController";
 import StudentDispatcher from "./dispatchers/StudentDispatcher";
 
 import "./App.css";
 
-const studentInfo = queryString.parse(window.location.search);
+var studentInfo = {};
 
 class App extends Component {
   constructor(props) {
     super(props);
+    const cookies = new Cookies();
+    const params = queryString.parse(window.location.search);
+    if(Object.entries(params).length > 0){
+      cookies.set('email', params.email);
+      cookies.set('id', params.id);
+      cookies.set('gradeid', params.gradeid);
+    }else
+    {
+      studentInfo = {
+        'email': cookies.get('email'),
+        'id': cookies.get('id'),
+        'gradeid': cookies.get('gradeid')
+      }
+    }
+
     this.state = {
       displayEstimates: false,
       displayInstructions: false,
@@ -61,19 +77,16 @@ class App extends Component {
           <Switch>
             <Route
               path="/"
-              component={Estimates}
               exact
               render={props => <Estimates {...props} student={studentInfo} />}
             />
             <Route
               path="/activities"
-              component={Activities}
               ref={this.child}
               render={props => <Activities {...props} student={studentInfo} />}
             />
             <Route
               path="/results"
-              component={Results}
               render={props => <Results {...props} student={studentInfo} />}
             />
             <Route component={Errors} />
