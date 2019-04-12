@@ -13,7 +13,6 @@ class Results extends React.Component {
   }
 
   render(){
-    console.log(`Result3.render hit`);
     if(this.state.loading) {
       const message = 'Still loading estimates and activities';
       return (<div><h1>{message}</h1></div>);
@@ -52,7 +51,7 @@ class Results extends React.Component {
 
   getLists = async function(){
     try {
-      console.log(`getLists asynch props name: ${this.props.name} id: ${this.props.id}`);
+      console.log(`getLists asynch props email: ${this.props.email} id: ${this.props.id} gradeId: ${this.props.gradeid}`);
       const estPromise = ResultTestClass.getEstimatesPromise();
       const actPromise = ResultTestClass.getActivitiesPromise();
       const [estList, actList] = await Promise.all([estPromise, actPromise]);
