@@ -9,7 +9,7 @@ import Errors from "./components/Errors";
 import NavigationBar from "./components/NavigationBar";
 
 import queryString from "query-string";
-import Cookies from 'universal-cookie';
+import Cookies from "universal-cookie";
 import StudentController from "./controllers/StudentController";
 import StudentDispatcher from "./dispatchers/StudentDispatcher";
 
@@ -22,17 +22,18 @@ class App extends Component {
     super(props);
     const cookies = new Cookies();
     const params = queryString.parse(window.location.search);
-    if(Object.entries(params).length > 0){
-      cookies.set('email', params.email);
-      cookies.set('id', params.id);
-      cookies.set('gradeid', params.gradeid);
-    }else
-    {
+    console.log(params);
+    if (Object.entries(params).length > 0) {
+      cookies.set("email", params.email);
+      cookies.set("lms_id", params.id);
+      cookies.set("gradeid", params.gradeid);
+      studentInfo = params;
+    } else {
       studentInfo = {
-        'email': cookies.get('email'),
-        'id': cookies.get('id'),
-        'gradeid': cookies.get('gradeid')
-      }
+        email: cookies.get("email"),
+        lms_id: cookies.get("lms_id"),
+        gradeid: cookies.get("gradeid")
+      };
     }
 
     this.state = {
@@ -45,7 +46,8 @@ class App extends Component {
     this.child = React.createRef();
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
+    console.log(studentInfo.email);
     let validateStudent = await StudentDispatcher.getStudent(studentInfo.email);
 
     if (validateStudent.data.Count < 1) {
