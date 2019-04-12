@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import queryString from "query-string";
-import StudentController from "../controllers/StudentController";
 
 class Instructions extends Component {
   constructor(props) {
@@ -22,17 +20,7 @@ class Instructions extends Component {
     });
   }
 
-  async componentWillMount() {
-    const params = queryString.parse(window.location.search);
-    console.log(params);
-
-    let validateCreateStudent = await StudentController.validateCreateStudent(
-      params
-    );
-
-    if (validateCreateStudent) {
-    }
-
+  componentWillMount() {
     console.log(this.state.displayInstructions);
     if (this.state.displayInstructions) {
       let overlay = document.getElementsByClassName("overlay"),

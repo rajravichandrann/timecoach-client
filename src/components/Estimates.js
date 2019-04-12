@@ -115,11 +115,11 @@ class Estimates extends Component {
         </div>
         <div className="estimate-container">
           <div className="row title-container">
-            <div className="row title-wrap">
-              <h5 className="-heading-3 -semi-bold col-sm-6">Activity</h5>
-              <h5 className="-heading-3 -semi-bold col-sm-6 -right">
+            <div className="row col-sm-7 title-wrap">
+              <h3 className="-heading-3 -semi-bold col-sm-6">Activity</h3>
+              <h3 className="-heading-3 -semi-bold col-sm-6 -right">
                 Estimate Time
-              </h5>
+              </h3>
             </div>
           </div>
           <ul className="estimate-list">
