@@ -1,0 +1,161 @@
+.activity-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 30px;
+  > .date-container {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 50%;
+  }
+}
+
+.date-container {
+  > .date {
+    position: relative;
+    padding-left: 25px;
+    &:before {
+      content: "";
+      background: url("./assets/icons/calendar-icon.svg");
+      height: 19px;
+      width: 18px;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-9px);
+    }
+  }
+}
+
+.empty-activities {
+  border: dashed $gray 2px;
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  padding: 30px 0;
+  margin-top: 35px;
+  &.-hidden {
+    display: none;
+  }
+}
+
+.logged-activities {
+  padding-top: 30px;
+  > .activities {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-left: 0;
+    opacity: 1;
+    transition: opacity 0.25s ease;
+    &.-hidden {
+      display: none;
+      opacity: 0;
+    }
+  }
+}
+
+.activities {
+  > .list-item {
+    background-color: $white;
+    width: 100%;
+    position: relative;
+    opacity: 0;
+    top: 50px;
+    padding: 5px 55px 5px 85px;
+    box-shadow: 0 1px 3px rgba($black, 0.16);
+    transition: transform 0.8s ease, opacity 0.8s ease;
+    &.-hidden {
+      display: none !important;
+    }
+    &.-animate {
+      display: flex;
+    }
+    &.-fade-in {
+      opacity: 1;
+      transform: translateY(-50px);
+    }
+    &.-new {
+      border-left: 3px solid $blue;
+      &:before {
+        content: "";
+        background: url("./assets/icons/smiley-icon.svg") no-repeat center
+          center;
+        background-size: contain;
+        height: 24px;
+        width: 24px;
+        position: absolute;
+        left: 25px;
+        top: 50%;
+        transform: translateY(-12px);
+      }
+      &:after {
+        content: "New";
+        font-size: 14px;
+        color: $blue;
+        font-weight: 400;
+        font-family: $main-font;
+        position: absolute;
+        left: 85px;
+        top: 40%;
+        transform: translateY(-20px);
+      }
+    }
+  }
+}
+
+.list-item {
+  &.-activity {
+    width: 100%;
+    > .name {
+      max-width: 50%;
+      width: 100%;
+      padding: 20px 20px 0 0;
+      @media (max-width: 600px) {
+        width: 100%;
+        max-width: 50%;
+      }
+    }
+    > .delete {
+      padding: 20px 0;
+      text-align: center;
+      &:after {
+        content: "";
+        background: url("./assets/icons/Trash_Icon.svg") no-repeat center center;
+        background-size: 24px;
+        position: absolute;
+        right: 30px;
+        top: 50%;
+        height: 12px;
+        width: 12px;
+        transform: translateY(-12px);
+        padding: 20px;
+      }
+    }
+  }
+  > .add-activity {
+    cursor: pointer;
+    font-weight: 600;
+    font-family: $main-font;
+    color: $blue;
+    font-size: 16px;
+    text-transform: uppercase;
+    text-align: right;
+    transition: color 0.15s ease-in-out;
+    padding: 20px 30px 20px 0;
+    &:hover {
+      color: darken($blue, 15%);
+    }
+    &.-isSet {
+      color: $darkerGray;
+      font-size: 18px;
+      text-transform: none;
+      font-weight: 400;
+      cursor: default;
+    }
+  }
+}
