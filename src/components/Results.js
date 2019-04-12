@@ -1,5 +1,6 @@
 import React from "react";
 import { Chart } from "react-google-charts";
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 class Results extends React.Component {
   constructor(props) {
@@ -13,10 +14,17 @@ class Results extends React.Component {
 
   render() {
     if (this.state.loading) {
-      const message = "Still loading estimates and activities";
+      var divStyle = {
+        color: 'blue',
+        margin: 'auto',
+        width: "50%"
+      };
+
+//      const message = "Still loading estimates and activities";
       return (
-        <div>
-          <h1>{message}</h1>
+        <div style={divStyle}>
+          {/*<h1>{message}</h1>*/}
+          <CircularProgress />
         </div>
       );
     }
