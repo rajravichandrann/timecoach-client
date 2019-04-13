@@ -2,9 +2,13 @@ import React from "react";
 import { Chart } from "react-google-charts";
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+const devMode = true;
+let studentInfo = null;
+
 class Results extends React.Component {
   constructor(props) {
     super(props);
+    studentInfo = props.student;
     this.state = {
       estimateList: null,
       activityList: null,
@@ -14,19 +18,12 @@ class Results extends React.Component {
 
   render() {
     if (this.state.loading) {
-      var divStyle = {
-        color: 'blue',
-        margin: 'auto',
-        width: "50%"
-      };
-
-//      const message = "Still loading estimates and activities";
-      return (
-        <div style={divStyle}>
-          {/*<h1>{message}</h1>*/}
-          <CircularProgress />
-        </div>
-      );
+      return <div style={{
+        position: 'absolute', left: '50%', top: '50%',
+        transform: 'translate(-50%, -50%)'
+      }}>
+        <CircularProgress/>
+      </div>
     }
     let chartData = [];
     chartData.push([`activity`, `Estimated`, `Actual`]);
@@ -46,7 +43,8 @@ class Results extends React.Component {
           width={"100%"} //500px
           // height={'60%'}  // 300px
           chartType="BarChart"
-          loader={<div>Loading Chart</div>}
+//
+          //          loader={<CircularProgress />}
           data={chartData}
           options={{
             title: "Estimated hours verses Actual hours per Activity",
@@ -66,15 +64,14 @@ class Results extends React.Component {
     );
   }
 
-  getLists = async function() {
+  async componentDidMount() {
     try {
-      console.log(
-        `getLists asynch props email: ${this.props.email} id: ${
-          this.props.id
-        } gradeId: ${this.props.gradeid}`
-      );
-      const estPromise = ResultTestClass.getEstimatesPromise();
-      const actPromise = ResultTestClass.getActivitiesPromise();
+      let estPromise = null; // replace this null with actual dispatcher call
+      let actPromise = null; // replace this null with actual dispatcher call
+      if(devMode) {
+        estPromise = ResultTestClass.getEstimatesPromise(studentInfo);
+        actPromise = ResultTestClass.getActivitiesPromise(studentInfo);
+      }
       const [estList, actList] = await Promise.all([estPromise, actPromise]);
       const localState = {
         estimateList: estList,
@@ -85,10 +82,9 @@ class Results extends React.Component {
     } catch (e) {
       console.error(e);
     }
-  };
+  }
 
   getInnerArray = function(activityId, estimates, activities) {
-    //  let innerArray = [];
     let activity;
     let estimate = 0;
     let actual = 0;
@@ -109,14 +105,11 @@ class Results extends React.Component {
     return [activity, estimate, actual / hit];
   };
 
-  componentDidMount() {
-    this.getLists();
-  }
 }
 export default Results;
 
 /* ****************************************************************************
- * Everything below here is development/initial testing code and can be removed once actual api calls are available
+ * Everything below here is development/initial testing code and could be removed
  *****************************************************************************/
 const MsPerDay = 1000 * 60 * 60 * 24;
 const HourMinutes = 60;
@@ -125,13 +118,15 @@ const actCount = 6;
 const estimateDay = new Date("April 09, 2019 00:00:00").getTime();
 
 class ResultTestClass {
-  static getEstimatesPromise() {
+  static getEstimatesPromise(student) {
+    console.debug(`getEstimatePromise for student id: ${student.lms_id} email: ${student.email} gradeid: ${student.gradeid}`);
     return new Promise(resolve => {
       setTimeout(() => resolve(ResultTestClass.getEstimates()), 2000);
     });
   }
 
-  static getActivitiesPromise() {
+  static getActivitiesPromise(student) {
+    console.debug(`getActivitiesPromise for student id: ${student.lms_id} email: ${student.email} gradeid: ${student.gradeid}`);
     return new Promise(resolve => {
       setTimeout(() => resolve(ResultTestClass.getActivities()), 3000);
     });
