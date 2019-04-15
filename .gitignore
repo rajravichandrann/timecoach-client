@@ -3,6 +3,8 @@
 # dependencies
 /node_modules
 /.pnp
+/.sass-cache
+/.vscode
 .pnp.js
 
 # testing
