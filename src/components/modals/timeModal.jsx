@@ -2,6 +2,8 @@
 import React, { Component } from "react";
 import moment from "moment";
 
+import EstimateController from "../../controllers/EstimateController";
+
 class TimeModal extends Component {
   constructor(props) {
     super(props);
@@ -108,6 +110,18 @@ class TimeModal extends Component {
       overlay = document.querySelectorAll(".overlay.-activity-time");
 
     console.log("calling create estimate");
+
+    const estimate = {
+      estimated_date: "2019-04-20",
+      activity_name: "Social Media",
+      activity_id: 7,
+      student_email: "gaurav.shinde@wgu.edu",
+      student_id: "f09204b0-5d57-11e9-ac22-7d66d9f182fa",
+      estimated_time: "02:00"
+    };
+
+    const createEstimate = EstimateController.validateCreateEstimate(estimate);
+    console.log(createEstimate);
 
     if (minutes === "" && hours === "") {
       // TODO: add call to api to remove existing database entry if it was set before
