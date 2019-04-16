@@ -1,20 +1,20 @@
 import React, { Component } from "react";
-import TimeModal from "../components/modals/timeModal";
+import TimeModalEstimate from "../components/modals/timeModalEstimate";
 
 class Estimates extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      renderTimeModal: false
+      renderTimeModalEstimate: false
     };
   }
 
   addTime(e) {
     let target = e.target;
     target.classList.add("-isActive");
-    if (this.state.renderTimeModal) {
+    if (this.state.renderTimeModalEstimate) {
       console.log(
-        "this.state.renderTimeModal was already set to true: addTime()"
+        "this.state.renderTimeModalEstimate was already set to true: addTime()"
       );
       let estimateOverlay = [].slice.call(
           document.querySelectorAll(".overlay.-activity-time")
@@ -69,7 +69,7 @@ class Estimates extends Component {
       }, 150);
     } else {
       this.setState({
-        renderTimeModal: true
+        renderTimeModalEstimate: true
       });
     }
   }
@@ -129,6 +129,7 @@ class Estimates extends Component {
                 className="col-sm-6 add-estimate -addTime"
                 data-hour=""
                 data-min=""
+                data-id="1"
                 data-title="Sleep"
               >
                 Add Time
@@ -140,6 +141,7 @@ class Estimates extends Component {
                 className="col-sm-6 add-estimate -addTime"
                 data-hour=""
                 data-min=""
+                data-id="2"
                 data-title="School and Homework"
                 onClick={this.addTime.bind(this)}
               >
@@ -152,6 +154,7 @@ class Estimates extends Component {
                 className="col-sm-6 add-estimate -addTime"
                 data-hour=""
                 data-min=""
+                data-id="3"
                 data-title="Job"
                 onClick={this.addTime.bind(this)}
               >
@@ -164,6 +167,7 @@ class Estimates extends Component {
                 className="col-sm-6 add-estimate -addTime"
                 data-hour=""
                 data-min=""
+                data-id="4"
                 data-title="Social Media"
                 onClick={this.addTime.bind(this)}
               >
@@ -176,6 +180,7 @@ class Estimates extends Component {
                 className="col-sm-6 add-estimate -addTime"
                 data-hour=""
                 data-min=""
+                data-id="5"
                 data-title="TV"
                 onClick={this.addTime.bind(this)}
               >
@@ -188,6 +193,7 @@ class Estimates extends Component {
                 className="col-sm-6 add-estimate -addTime"
                 data-hour=""
                 data-min=""
+                data-id="6"
                 data-title="Exercise"
                 onClick={this.addTime.bind(this)}
               >
@@ -200,6 +206,7 @@ class Estimates extends Component {
                 className="col-sm-6 add-estimate -addTime"
                 data-hour=""
                 data-min=""
+                data-id="7"
                 data-title="Misc"
                 onClick={this.addTime.bind(this)}
               >
@@ -207,7 +214,7 @@ class Estimates extends Component {
               </span>
             </li>
           </ul>
-          {this.state.renderTimeModal ? <TimeModal /> : null}
+          {this.state.renderTimeModalEstimate ? <TimeModalEstimate /> : null}
         </div>
       </div>
     );
