@@ -2,15 +2,17 @@ import React from "react";
 import { Chart } from "react-google-charts";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import axios from "axios";
-import {AxiosPromise, AxiosRequestConfig} from "axios/index";
+import EstimateDispatcher from "../dispatchers/EstimateDispatcher";
+import ActivityDispatcher from "../dispatchers/ActivityDispatcher";
+//import {AxiosPromise, AxiosRequestConfig} from "axios/index";
 
 const devMode = true;
-let studentInfo = null;
+//let studentInfo = null;
 
 class Results extends React.Component {
   constructor(props) {
     super(props);
-    studentInfo = props.student;
+//    studentInfo = props.student;
     this.state = {
       estimateList: null,
       activityList: null,
@@ -67,13 +69,15 @@ class Results extends React.Component {
   }
 
   async componentDidMount() {
-    console.log(`student_id:${this.props.student_info.student_id}`);
+    console.log(this.props);
+    console.log(this.props.student);
+    console.log(`student_id:${this.props.student.student_id}`);
     try {
-      let estPromise = null; //await EstimateDispatcher.getStudent(studentInfo.email); //null; // replace this null with actual dispatcher call
-      let actPromise =null; // await ActivityDispatcher.getStudent(studentInfo.email); //null; // replace this null with actual dispatcher call
+      let estPromise = await EstimateDispatcher.getEstimatesPerStudent(this.props.student.student_id);
+      let actPromise = await ActivityDispatcher.getActivitiesPerStudent(this.props.student.student_id);
       if(devMode) {
-        estPromise = ResultTestClass.getEstimatesPromise(this.props.student_info);
-        actPromise = ResultTestClass.getActivitiesPromise(this.props.student_info);
+        estPromise = ResultTestClass.getEstimatesPromise(this.props.student);
+        actPromise = ResultTestClass.getActivitiesPromise(this.props.student);
       }
       const [estList, actList] = await Promise.all([estPromise, actPromise]);
       const localState = {
@@ -88,14 +92,19 @@ class Results extends React.Component {
         if(devMode)
           url = `https://https://qlti.devcals-learn.org/grade/passback`;
         // fire callback
-        const getActivitiesPerStudentDis = axios.post(
+          axios.post(
           url,
           {
-            gradeid: this.props.student_info.gradeid,
+            gradeid: this.props.student.gradeid,
             grade: "1.0",
 //            callbackurl: environment.qlti.callbackUrl
           }
-        ).catch(function (error) {
+        ) .then(function (response) {
+            // handle success
+            console.log(`success response:`);
+            console.log(response);
+          })
+          .catch(function (error) {
           // if (err.error instanceof Error) {
           //   // A client-side or network error occurred. Handle it accordingly.
           //   console.error('An error occurred:', err.error.message);
@@ -103,10 +112,15 @@ class Results extends React.Component {
             // The backend returned an unsuccessful response code.
             // The response body may contain clues as to what went wrong,
 //          console.error(`Backend returned code ${error.status}, body was: ${error.error}`);
+            console.log(`failure error:`);
             console.log(error);
             console.error(`Backend returned code ${error.status}, body was: ${error.error}`);
           // }
-          });
+          })
+          .then(function () {
+              // finally
+              console.log(`finally hit`);
+            })          ;
       }
     } catch (e) {
       console.error(e);
