@@ -1,18 +1,18 @@
 /* eslint-disable no-useless-escape */
 import React, { Component } from "react";
-import moment from "moment";
 
-import ActivityController from "../../controllers/ActivityController";
+import EstimateController from "../../controllers/EstimateController";
+import EstimateDispatcher from "../../dispatchers/EstimateDispatcher";
 
-class TimeModal extends Component {
+class TimeModalEstimate extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      renderTimeModal: true
+      renderTimeModalEstimate: true
     };
   }
   componentDidMount = () => {
-    if (this.state.renderTimeModal) {
+    if (this.state.renderTimeModalEstimate) {
       let estimateOverlay = [].slice.call(
           document.querySelectorAll(".overlay.-activity-time")
         ),
@@ -24,6 +24,7 @@ class TimeModal extends Component {
         estimateOverlay[0].classList.add("-animate");
         estimateOverlay[0].classList.add("-isActive");
         modalTitle.innerText = target[0].dataset["title"];
+        console.log(modalTitle.innerText);
         modalTitle.focus();
         setTimeout(function() {
           modalContent.classList.add("-isAnimated");
@@ -67,42 +68,6 @@ class TimeModal extends Component {
     }
   };
 
-  isValidDate = dateString => {
-    console.log(dateString);
-    let dateArray = dateString.split("/"),
-      passedYear = dateArray[0],
-      currentYear = moment().year();
-    // First check for the pattern
-
-    if (
-      dateString.match(/^[0-9]{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])/)
-    ) {
-      if (
-        parseInt(passedYear) < currentYear ||
-        parseInt(passedYear) > currentYear
-      ) {
-        return false;
-      } else {
-        return true;
-      }
-    } else {
-      return false;
-    }
-  };
-
-  dateUpdate = e => {
-    if (!this.isValidDate(e.target.value)) {
-      e.target.classList.add("-hasError");
-      e.target.nextSibling.classList.add("-isVisible");
-    } else {
-      if (e.target.className.indexOf("-hasError") > 0) {
-        e.target.classList.remove("-hasError");
-        e.target.classList.add("-isValid");
-        e.target.nextSibling.classList.remove("-isVisible");
-      }
-    }
-  };
-
   saveTime = () => {
     let minutes = document.querySelectorAll(".min-input")[0].value,
       hours = document.querySelectorAll(".hour-input")[0].value,
@@ -111,20 +76,28 @@ class TimeModal extends Component {
       target = document.querySelectorAll(".-addTime.-isActive"),
       activity_name = target[0].dataset["title"];
 
-    console.log("calling create activity");
+    console.log("calling create estimate");
 
-    const activity = {
-      estimated_date: "2019-04-20",
-      activity_name: activity_name,
-      student_email: this.props.student.email,
-      student_id: this.props.student.student_id,
-      logged_time: hours + ":" + minutes
-    };
+    if (activity_name !== "" && hours !== "" && minutes !== "") {
+      const estimate = {
+        activity_name: activity_name,
+        student_email: this.props.student.email,
+        student_id: this.props.student.student_id,
+        estimated_time: hours + ":" + minutes
+      };
 
-    console.log(activity);
+      //   const getEstimate = EstimateController.getEstimatesPerStudent(
+      //     this.props.student.student_id
+      //   );
+      //   console.log(getEstimate);
 
-    const createActivity = ActivityController.validateCreateActivity(activity);
-    console.log(createActivity);
+      const createEstimate = EstimateController.validateCreateEstimate(
+        estimate
+      );
+      console.log(createEstimate);
+    } else {
+      console.error("Validation Error: Create Estimate");
+    }
 
     if (minutes === "" && hours === "") {
       // TODO: add call to api to remove existing database entry if it was set before
@@ -136,7 +109,7 @@ class TimeModal extends Component {
         activeEstimate[0].innerText = "Add Time";
       }
     } else if (minutes < 1 && hours < 1) {
-      // make dispatch call here to delete previous entry.
+      //make dispatch call here to delete previous entry.
       activeEstimate[0].innerText = "Add Time";
     } else if (minutes !== "" && hours !== "") {
       activeEstimate[0].innerText = hours + " hrs " + minutes + " min";
@@ -169,25 +142,6 @@ class TimeModal extends Component {
           <h2 className="title">No Title Found</h2>
           <span className="close" onClick={this.closeModal.bind(this)} />
           <form className="row time-container -activities-form">
-            <ul className="col-sm-12 time-list -minute-list">
-              <li className="list-item -title">
-                <label htmlFor="date">Date</label>
-              </li>
-              <li className="list-item -date">
-                <input
-                  id="date"
-                  type="date"
-                  className="date-input"
-                  name="activityDate"
-                  placeholder="MM/DD/YYYY"
-                  onBlur={this.dateUpdate.bind(this)}
-                />
-                <span className="error-msg">
-                  the date must fall within the current year and 7 days from
-                  your estimate date.
-                </span>
-              </li>
-            </ul>
             <ul className="col-sm-6 time-list -hour-list">
               <li className="list-item -title">
                 <label htmlFor="Hours">Hours</label>
@@ -241,4 +195,4 @@ class TimeModal extends Component {
   }
 }
 
-export default TimeModal;
+export default TimeModalEstimate;

@@ -13,8 +13,19 @@ async function validateCreateEstimate(estimate) {
   return checkCreateEstimate;
 }
 
+async function getEstimatesPerStudent(student_id) {
+  if (student_id) {
+    var getEstimatesPerStudentDis = await EstimateDispatcher.getEstimatesPerStudent(
+      student_id
+    );
+    console.log(getEstimatesPerStudentDis.data);
+  }
+  return getEstimatesPerStudentDis;
+}
+
 const EstimateController = {
-  validateCreateEstimate: validateCreateEstimate
+  validateCreateEstimate: validateCreateEstimate,
+  getEstimatesPerStudent: getEstimatesPerStudent
 };
 
 export default EstimateController;
