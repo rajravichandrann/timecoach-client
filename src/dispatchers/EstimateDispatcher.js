@@ -37,12 +37,12 @@ const createEstimate = estimate => {
   });
 };
 
-const deleteEstimate = (estimate_id, student_id) => {
+const deleteEstimate = (activity_name, student_id) => {
   return new Promise((resolve, reject) => {
     console.log("in deleteEstimate");
 
-    const deleteEstimate = axios.post(
-      `https://ku7v422rcd.execute-api.us-west-2.amazonaws.com/dev/estimates/${estimate_id}/student/${student_id}`
+    const deleteEstimate = axios.delete(
+      `https://ku7v422rcd.execute-api.us-west-2.amazonaws.com/dev/estimates/${activity_name}/student/${student_id}`
     );
 
     if (deleteEstimate) {

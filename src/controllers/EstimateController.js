@@ -18,14 +18,24 @@ async function getEstimatesPerStudent(student_id) {
     var getEstimatesPerStudentDis = await EstimateDispatcher.getEstimatesPerStudent(
       student_id
     );
-    console.log(getEstimatesPerStudentDis.data);
   }
   return getEstimatesPerStudentDis;
 }
 
+async function deleteEstimate(activity_name, student_id) {
+  if (activity_name !== "" && student_id !== "") {
+    var deleteEstimateDis = await EstimateDispatcher.deleteEstimate(
+      activity_name,
+      student_id
+    );
+    console.log(deleteEstimateDis);
+  }
+}
+
 const EstimateController = {
   validateCreateEstimate: validateCreateEstimate,
-  getEstimatesPerStudent: getEstimatesPerStudent
+  getEstimatesPerStudent: getEstimatesPerStudent,
+  deleteEstimate: deleteEstimate
 };
 
 export default EstimateController;
