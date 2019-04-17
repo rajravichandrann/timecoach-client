@@ -1,6 +1,8 @@
 import React from "react";
 import { Chart } from "react-google-charts";
 import CircularProgress from '@material-ui/core/CircularProgress';
+import axios from "axios";
+import {AxiosPromise, AxiosRequestConfig} from "axios/index";
 
 const devMode = true;
 let studentInfo = null;
@@ -65,12 +67,13 @@ class Results extends React.Component {
   }
 
   async componentDidMount() {
+    console.log(`student_id:${this.props.student_info.student_id}`);
     try {
-      let estPromise = null; // replace this null with actual dispatcher call
-      let actPromise = null; // replace this null with actual dispatcher call
+      let estPromise = null; //await EstimateDispatcher.getStudent(studentInfo.email); //null; // replace this null with actual dispatcher call
+      let actPromise =null; // await ActivityDispatcher.getStudent(studentInfo.email); //null; // replace this null with actual dispatcher call
       if(devMode) {
-        estPromise = ResultTestClass.getEstimatesPromise(studentInfo);
-        actPromise = ResultTestClass.getActivitiesPromise(studentInfo);
+        estPromise = ResultTestClass.getEstimatesPromise(this.props.student_info);
+        actPromise = ResultTestClass.getActivitiesPromise(this.props.student_info);
       }
       const [estList, actList] = await Promise.all([estPromise, actPromise]);
       const localState = {
@@ -79,6 +82,32 @@ class Results extends React.Component {
         loading: false
       };
       this.setState(localState);
+      if(actList.length > 2)
+      {
+        let url = `https://https://qlti.cals-learn.org/grade/passback`;
+        if(devMode)
+          url = `https://https://qlti.devcals-learn.org/grade/passback`;
+        // fire callback
+        const getActivitiesPerStudentDis = axios.post(
+          url,
+          {
+            gradeid: this.props.student_info.gradeid,
+            grade: "1.0",
+//            callbackurl: environment.qlti.callbackUrl
+          }
+        ).catch(function (error) {
+          // if (err.error instanceof Error) {
+          //   // A client-side or network error occurred. Handle it accordingly.
+          //   console.error('An error occurred:', err.error.message);
+          // } else {
+            // The backend returned an unsuccessful response code.
+            // The response body may contain clues as to what went wrong,
+//          console.error(`Backend returned code ${error.status}, body was: ${error.error}`);
+            console.log(error);
+            console.error(`Backend returned code ${error.status}, body was: ${error.error}`);
+          // }
+          });
+      }
     } catch (e) {
       console.error(e);
     }
