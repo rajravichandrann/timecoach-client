@@ -1,9 +1,18 @@
 import React from "react";
 import { Chart } from "react-google-charts";
+import CircularProgress from '@material-ui/core/CircularProgress';
+import axios from "axios";
+import EstimateDispatcher from "../dispatchers/EstimateDispatcher";
+import ActivityDispatcher from "../dispatchers/ActivityDispatcher";
+//import {AxiosPromise, AxiosRequestConfig} from "axios/index";
+
+const devMode = true;
+//let studentInfo = null;
 
 class Results extends React.Component {
   constructor(props) {
     super(props);
+//    studentInfo = props.student;
     this.state = {
       estimateList: null,
       activityList: null,
@@ -13,12 +22,12 @@ class Results extends React.Component {
 
   render() {
     if (this.state.loading) {
-      const message = "Still loading estimates and activities";
-      return (
-        <div>
-          <h1>{message}</h1>
-        </div>
-      );
+      return <div style={{
+        position: 'absolute', left: '50%', top: '50%',
+        transform: 'translate(-50%, -50%)'
+      }}>
+        <CircularProgress/>
+      </div>
     }
     let chartData = [];
     chartData.push([`activity`, `Estimated`, `Actual`]);
@@ -38,7 +47,8 @@ class Results extends React.Component {
           width={"100%"} //500px
           // height={'60%'}  // 300px
           chartType="BarChart"
-          loader={<div>Loading Chart</div>}
+//
+          //          loader={<CircularProgress />}
           data={chartData}
           options={{
             title: "Estimated hours verses Actual hours per Activity",
@@ -58,15 +68,17 @@ class Results extends React.Component {
     );
   }
 
-  getLists = async function() {
+  async componentDidMount() {
+    console.log(this.props);
+    console.log(this.props.student);
+    console.log(`student_id:${this.props.student.student_id}`);
     try {
-      console.log(
-        `getLists asynch props email: ${this.props.email} id: ${
-          this.props.id
-        } gradeId: ${this.props.gradeid}`
-      );
-      const estPromise = ResultTestClass.getEstimatesPromise();
-      const actPromise = ResultTestClass.getActivitiesPromise();
+      let estPromise = await EstimateDispatcher.getEstimatesPerStudent(this.props.student.student_id);
+      let actPromise = await ActivityDispatcher.getActivitiesPerStudent(this.props.student.student_id);
+      if(devMode) {
+        estPromise = ResultTestClass.getEstimatesPromise(this.props.student);
+        actPromise = ResultTestClass.getActivitiesPromise(this.props.student);
+      }
       const [estList, actList] = await Promise.all([estPromise, actPromise]);
       const localState = {
         estimateList: estList,
@@ -74,13 +86,48 @@ class Results extends React.Component {
         loading: false
       };
       this.setState(localState);
+      if(actList.length > 2)
+      {
+        let url = `https://https://qlti.cals-learn.org/grade/passback`;
+        if(devMode)
+          url = `https://https://qlti.devcals-learn.org/grade/passback`;
+        // fire callback
+          axios.post(
+          url,
+          {
+            gradeid: this.props.student.gradeid,
+            grade: "1.0",
+//            callbackurl: environment.qlti.callbackUrl
+          }
+        ) .then(function (response) {
+            // handle success
+            console.log(`success response:`);
+            console.log(response);
+          })
+          .catch(function (error) {
+          // if (err.error instanceof Error) {
+          //   // A client-side or network error occurred. Handle it accordingly.
+          //   console.error('An error occurred:', err.error.message);
+          // } else {
+            // The backend returned an unsuccessful response code.
+            // The response body may contain clues as to what went wrong,
+//          console.error(`Backend returned code ${error.status}, body was: ${error.error}`);
+            console.log(`failure error:`);
+            console.log(error);
+            console.error(`Backend returned code ${error.status}, body was: ${error.error}`);
+          // }
+          })
+          .then(function () {
+              // finally
+              console.log(`finally hit`);
+            })          ;
+      }
     } catch (e) {
       console.error(e);
     }
-  };
+  }
 
   getInnerArray = function(activityId, estimates, activities) {
-    //  let innerArray = [];
     let activity;
     let estimate = 0;
     let actual = 0;
@@ -101,14 +148,11 @@ class Results extends React.Component {
     return [activity, estimate, actual / hit];
   };
 
-  componentDidMount() {
-    this.getLists();
-  }
 }
 export default Results;
 
 /* ****************************************************************************
- * Everything below here is development/initial testing code and can be removed once actual api calls are available
+ * Everything below here is development/initial testing code and could be removed
  *****************************************************************************/
 const MsPerDay = 1000 * 60 * 60 * 24;
 const HourMinutes = 60;
@@ -117,13 +161,15 @@ const actCount = 6;
 const estimateDay = new Date("April 09, 2019 00:00:00").getTime();
 
 class ResultTestClass {
-  static getEstimatesPromise() {
+  static getEstimatesPromise(student) {
+    console.debug(`getEstimatePromise for student id: ${student.lms_id} email: ${student.email} gradeid: ${student.gradeid}`);
     return new Promise(resolve => {
       setTimeout(() => resolve(ResultTestClass.getEstimates()), 2000);
     });
   }
 
-  static getActivitiesPromise() {
+  static getActivitiesPromise(student) {
+    console.debug(`getActivitiesPromise for student id: ${student.lms_id} email: ${student.email} gradeid: ${student.gradeid}`);
     return new Promise(resolve => {
       setTimeout(() => resolve(ResultTestClass.getActivities()), 3000);
     });

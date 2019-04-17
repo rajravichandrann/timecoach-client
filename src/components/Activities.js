@@ -295,7 +295,9 @@ class Activities extends Component {
             list={this.state.activityList}
           />
         ) : null}
-        {this.state.renderTimeModal ? <TimeModal /> : null}
+        {this.state.renderTimeModal ? (
+          <TimeModal student={this.props.student} />
+        ) : null}
       </div>
     );
   }

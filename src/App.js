@@ -32,7 +32,8 @@ class App extends Component {
       studentInfo = {
         email: cookies.get("email"),
         lms_id: cookies.get("lms_id"),
-        gradeid: cookies.get("gradeid")
+        gradeid: cookies.get("gradeid"),
+        student_id: cookies.get("student_id")
       };
     }
 
@@ -40,7 +41,8 @@ class App extends Component {
       displayEstimates: false,
       displayInstructions: false,
       displayActivities: false,
-      displayResults: false
+      displayResults: false,
+      student_info: studentInfo
     };
 
     this.child = React.createRef();
@@ -48,6 +50,9 @@ class App extends Component {
 
   async componentDidMount() {
     console.log(studentInfo.email);
+
+    const cookies = new Cookies();
+
     let validateStudent = await StudentDispatcher.getStudent(studentInfo.email);
 
     if (validateStudent.data.Count < 1) {
@@ -55,18 +60,27 @@ class App extends Component {
       let validateCreateStudent = await StudentController.validateCreateStudent(
         studentInfo
       );
+
+      cookies.set("student_id", studentInfo.student_id);
+
       if (validateCreateStudent) {
         this.setState({
-          displayInstructions: true
+          displayInstructions: true,
+          student_info: studentInfo
         });
       }
     } else {
       console.log("Student was here!!!");
+      studentInfo.student_id = validateStudent.data.Items[0].student_id;
+      cookies.set("student_id", studentInfo.student_id);
       this.setState({
         displayEstimates: true
       });
       this.setState({
         displayInstructions: false
+      });
+      this.setState({
+        student_info: studentInfo
       });
     }
   }
@@ -80,16 +94,22 @@ class App extends Component {
             <Route
               path="/"
               exact
-              render={props => <Estimates {...props} student={studentInfo} />}
+              render={props => (
+                <Estimates {...props} student={this.state.student_info} />
+              )}
             />
             <Route
               path="/activities"
               ref={this.child}
-              render={props => <Activities {...props} student={studentInfo} />}
+              render={props => (
+                <Activities {...props} student={this.state.student_info} />
+              )}
             />
             <Route
               path="/results"
-              render={props => <Results {...props} student={studentInfo} />}
+              render={props => (
+                <Results {...props} student={this.state.student_info} />
+              )}
             />
             <Route component={Errors} />
           </Switch>
