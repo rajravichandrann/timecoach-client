@@ -214,7 +214,9 @@ class Estimates extends Component {
               </span>
             </li>
           </ul>
-          {this.state.renderTimeModalEstimate ? <TimeModalEstimate /> : null}
+          {this.state.renderTimeModalEstimate ? (
+            <TimeModalEstimate student={this.props.student} />
+          ) : null}
         </div>
       </div>
     );

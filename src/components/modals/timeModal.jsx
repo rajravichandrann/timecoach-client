@@ -107,18 +107,21 @@ class TimeModal extends Component {
     let minutes = document.querySelectorAll(".min-input")[0].value,
       hours = document.querySelectorAll(".hour-input")[0].value,
       activeEstimate = document.querySelectorAll(".-addTime.-isActive"),
-      overlay = document.querySelectorAll(".overlay.-activity-time");
+      overlay = document.querySelectorAll(".overlay.-activity-time"),
+      target = document.querySelectorAll(".-addTime.-isActive"),
+      activity_name = target[0].dataset["title"];
 
-    console.log("calling create estimate");
+    console.log("calling create activity");
 
     const activity = {
       estimated_date: "2019-04-20",
-      activity_name: "Studies",
-      activity_id: 1,
-      student_email: "gaurav.shinde@wgu.edu",
-      student_id: "f09204b0-5d57-11e9-ac22-7d66d9f182fa",
-      logged_time: "02:00"
+      activity_name: activity_name,
+      student_email: this.props.student.email,
+      student_id: this.props.student.student_id,
+      logged_time: hours + ":" + minutes
     };
+
+    console.log(activity);
 
     const createActivity = ActivityController.validateCreateActivity(activity);
     console.log(createActivity);

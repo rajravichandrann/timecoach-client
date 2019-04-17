@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 
 import EstimateController from "../../controllers/EstimateController";
+import EstimateDispatcher from "../../dispatchers/EstimateDispatcher";
 
 class TimeModalEstimate extends Component {
   constructor(props) {
@@ -23,6 +24,7 @@ class TimeModalEstimate extends Component {
         estimateOverlay[0].classList.add("-animate");
         estimateOverlay[0].classList.add("-isActive");
         modalTitle.innerText = target[0].dataset["title"];
+        console.log(modalTitle.innerText);
         modalTitle.focus();
         setTimeout(function() {
           modalContent.classList.add("-isAnimated");
@@ -70,21 +72,32 @@ class TimeModalEstimate extends Component {
     let minutes = document.querySelectorAll(".min-input")[0].value,
       hours = document.querySelectorAll(".hour-input")[0].value,
       activeEstimate = document.querySelectorAll(".-addTime.-isActive"),
-      overlay = document.querySelectorAll(".overlay.-activity-time");
+      overlay = document.querySelectorAll(".overlay.-activity-time"),
+      target = document.querySelectorAll(".-addTime.-isActive"),
+      activity_name = target[0].dataset["title"];
 
     console.log("calling create estimate");
 
-    const estimate = {
-      estimated_date: "2019-04-20",
-      activity_name: "Studies",
-      activity_id: 1,
-      student_email: "gaurav.shinde@wgu.edu",
-      student_id: "f09204b0-5d57-11e9-ac22-7d66d9f182fa",
-      estimated_time: "02:00"
-    };
+    if (activity_name !== "" && hours !== "" && minutes !== "") {
+      const estimate = {
+        activity_name: activity_name,
+        student_email: this.props.student.email,
+        student_id: this.props.student.student_id,
+        estimated_time: hours + ":" + minutes
+      };
 
-    const createEstimate = EstimateController.validateCreateEstimate(estimate);
-    console.log(createEstimate);
+      //   const getEstimate = EstimateController.getEstimatesPerStudent(
+      //     this.props.student.student_id
+      //   );
+      //   console.log(getEstimate);
+
+      const createEstimate = EstimateController.validateCreateEstimate(
+        estimate
+      );
+      console.log(createEstimate);
+    } else {
+      console.error("Validation Error: Create Estimate");
+    }
 
     if (minutes === "" && hours === "") {
       // TODO: add call to api to remove existing database entry if it was set before
@@ -96,7 +109,7 @@ class TimeModalEstimate extends Component {
         activeEstimate[0].innerText = "Add Time";
       }
     } else if (minutes < 1 && hours < 1) {
-      // make dispatch call here to delete previous entry.
+      //make dispatch call here to delete previous entry.
       activeEstimate[0].innerText = "Add Time";
     } else if (minutes !== "" && hours !== "") {
       activeEstimate[0].innerText = hours + " hrs " + minutes + " min";
