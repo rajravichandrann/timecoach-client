@@ -68,7 +68,7 @@ class TimeModalEstimate extends Component {
     }
   };
 
-  saveTime = () => {
+  async saveTime() {
     let minutes = document.querySelectorAll(".min-input")[0].value,
       hours = document.querySelectorAll(".hour-input")[0].value,
       activeEstimate = document.querySelectorAll(".-addTime.-isActive"),
@@ -86,12 +86,7 @@ class TimeModalEstimate extends Component {
         estimated_time: hours + ":" + minutes
       };
 
-      //   const getEstimate = EstimateController.getEstimatesPerStudent(
-      //     this.props.student.student_id
-      //   );
-      //   console.log(getEstimate);
-
-      const createEstimate = EstimateController.validateCreateEstimate(
+      const createEstimate = await EstimateController.validateCreateEstimate(
         estimate
       );
       console.log(createEstimate);
@@ -124,7 +119,7 @@ class TimeModalEstimate extends Component {
       overlay[0].children[0].classList.remove("-isAnimated");
     }, 300);
     document.getElementsByClassName("time-container")[0].reset();
-  };
+  }
 
   closeModal = () => {
     let overlay = document.querySelectorAll(".-activity-time.-isActive");

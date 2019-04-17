@@ -54,8 +54,6 @@ class App extends Component {
     const cookies = new Cookies();
 
     let validateStudent = await StudentDispatcher.getStudent(studentInfo.email);
-    studentInfo.student_id = validateStudent.data.Items[0].student_id;
-    cookies.set("student_id", studentInfo.student_id);
 
     if (validateStudent.data.Count < 1) {
       console.log("Student is here for the first time.");
@@ -73,6 +71,8 @@ class App extends Component {
       }
     } else {
       console.log("Student was here!!!");
+      studentInfo.student_id = validateStudent.data.Items[0].student_id;
+      cookies.set("student_id", studentInfo.student_id);
       this.setState({
         displayEstimates: true
       });
