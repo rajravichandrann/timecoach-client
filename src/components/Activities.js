@@ -3,6 +3,8 @@ import TimeModal from "../components/modals/timeModal";
 import ActivityList from "../components/modals/activityList";
 import ActivityModal from "../components/modals/addActivity";
 
+import ActivityController from "../controllers/ActivityController";
+
 class Activities extends Component {
   constructor(props) {
     super(props);
@@ -18,22 +20,16 @@ class Activities extends Component {
     this.addTime = this.addTime.bind(this);
   }
 
-  componentDidMount = () => {
-    let date = new Date(),
-      activities = [
-        //     {
-        //         "estimated_date": "2019-02-06",
-        //         "activity_name": "Eat",
-        //         "student_email": "zach.manning@wgu.edu",
-        //         "updatedAt": "2019-02-06 16:55:43",
-        //         "logged_time": "01:15",
-        //         "student_id": "8423a460-2958-11e9-8af5-27c9d9e924af",
-        //         "activities_id": "0a3f2ce0-2a30-11e9-ad65-27ffa0362f25",
-        //         "activity_id": 7
-        //     }
-      ];
+  async componentDidMount() {
+    const student_id = this.props.student.student_id;
+    // let getActivitiesForStudent = [];
+    let getActivitiesForStudent = await ActivityController.getActivitiesPerStudent(
+      student_id
+    );
 
-    let activityLength = this.sizeObject(activities);
+    console.log(getActivitiesForStudent.data);
+
+    let activityLength = this.sizeObject(getActivitiesForStudent);
     if (activityLength) {
       document
         .querySelectorAll(".empty-activities")[0]
@@ -44,11 +40,11 @@ class Activities extends Component {
 
       // document.querySelectorAll('.logged-activities > .activities')[0].classList.remove('-hidden');
       setTimeout(function() {
-        let activities = document.querySelectorAll(
-          ".logged-activities > .activities"
-        )[0];
+        // let activities = document.querySelectorAll(
+        //   ".logged-activities > .activities"
+        // )[0];
 
-        activities.classList.remove("-hidden");
+        // activities.classList.remove("-hidden");
 
         let targetSelectors = document.querySelectorAll(
             ".activities > .list-item"
@@ -69,7 +65,7 @@ class Activities extends Component {
     } else {
       console.log("no entries made");
     }
-  };
+  }
 
   renderElements = (targetSelectors, delay, incrementDelayBy) => {
     for (let i = 0; i < targetSelectors.length; i++) {
@@ -259,12 +255,37 @@ class Activities extends Component {
   };
 
   render() {
-    let dateObj = new Date();
-    let month = dateObj.getUTCMonth() + 1;
-    let day = dateObj.getUTCDate();
-    let year = dateObj.getUTCFullYear();
+    var dateObj = new Date();
 
-    const stringDate = year + ", " + month + " " + day;
+    var days = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ];
+    var months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ];
+
+    var day = days[dateObj.getDay()];
+    var month = months[dateObj.getMonth()];
+    let date = dateObj.getUTCDate();
+
+    const stringDate = day + ", " + month + " " + date;
 
     return (
       <div className="app-container">
@@ -286,13 +307,18 @@ class Activities extends Component {
           No activities. Let's get started!
         </div>
         {this.state.renderedList ? (
-          <ActivityList addTime={this.addTime} list={this.state.renderedList} />
+          <ActivityList
+            addTime={this.addTime}
+            list={this.state.renderedList}
+            student={this.props.student}
+          />
         ) : null}
         {this.state.addActivity ? (
           <ActivityModal
             childCall={this.addActivityToList}
             refresh={this.refreshActivities}
             list={this.state.activityList}
+            student={this.props.student}
           />
         ) : null}
         {this.state.renderTimeModal ? (

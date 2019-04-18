@@ -42,7 +42,7 @@ const deleteActivity = (activities_id, student_id) => {
   return new Promise((resolve, reject) => {
     console.log("in deleteActivity");
 
-    const deleteActivity = axios.post(
+    const deleteActivity = axios.delete(
       `https://ku7v422rcd.execute-api.us-west-2.amazonaws.com/dev/activities/${activities_id}/student/${student_id}`
     );
 

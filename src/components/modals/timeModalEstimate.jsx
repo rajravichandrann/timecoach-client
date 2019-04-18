@@ -2,7 +2,6 @@
 import React, { Component } from "react";
 
 import EstimateController from "../../controllers/EstimateController";
-import EstimateDispatcher from "../../dispatchers/EstimateDispatcher";
 
 class TimeModalEstimate extends Component {
   constructor(props) {
@@ -11,6 +10,7 @@ class TimeModalEstimate extends Component {
       renderTimeModalEstimate: true
     };
   }
+
   componentDidMount = () => {
     if (this.state.renderTimeModalEstimate) {
       let estimateOverlay = [].slice.call(

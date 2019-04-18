@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import TimeModalEstimate from "../components/modals/timeModalEstimate";
+import EstimateController from "../controllers/EstimateController";
 
 class Estimates extends Component {
   constructor(props) {
@@ -7,6 +8,37 @@ class Estimates extends Component {
     this.state = {
       renderTimeModalEstimate: false
     };
+  }
+
+  async componentWillMount() {
+    const student_id = this.props.student.student_id;
+
+    var getEstimatesForStudent = await EstimateController.getEstimatesPerStudent(
+      student_id
+    );
+
+    var categoryList = document.getElementsByClassName("add-estimate");
+
+    for (var i = 0; i < categoryList.length; i++) {
+      for (var j = 0; j < getEstimatesForStudent.data.length; j++) {
+        if (
+          categoryList[i].getAttribute("data-title") ===
+          getEstimatesForStudent.data[j].activity_name
+        ) {
+          var idx = getEstimatesForStudent.data[j].estimated_time.indexOf(":");
+          var hour = getEstimatesForStudent.data[j].estimated_time.substring(
+            0,
+            idx
+          );
+          var min = getEstimatesForStudent.data[j].estimated_time.substring(
+            idx + 1
+          );
+
+          var updatedTime = hour + "  HRS  " + min + "  MIN";
+          categoryList[i].innerHTML = updatedTime;
+        }
+      }
+    }
   }
 
   addTime(e) {

@@ -12,6 +12,7 @@ import queryString from "query-string";
 import Cookies from "universal-cookie";
 import StudentController from "./controllers/StudentController";
 import StudentDispatcher from "./dispatchers/StudentDispatcher";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import "./App.css";
 
@@ -48,7 +49,7 @@ class App extends Component {
     this.child = React.createRef();
   }
 
-  async componentDidMount() {
+  async componentWillMount() {
     console.log(studentInfo.email);
 
     const cookies = new Cookies();
@@ -61,6 +62,7 @@ class App extends Component {
         studentInfo
       );
 
+      studentInfo.student_id = validateCreateStudent;
       cookies.set("student_id", studentInfo.student_id);
 
       if (validateCreateStudent) {
@@ -86,6 +88,19 @@ class App extends Component {
   }
 
   render() {
+    if (!this.state.student_info.student_id)
+      return (
+        <div
+          style={{
+            position: "absolute",
+            left: "50%",
+            top: "50%",
+            transform: "translate(-50%, -50%)"
+          }}
+        >
+          <CircularProgress />
+        </div>
+      );
     return (
       <React.Fragment>
         <NavigationBar />
@@ -94,22 +109,16 @@ class App extends Component {
             <Route
               path="/"
               exact
-              render={props => (
-                <Estimates {...props} student={this.state.student_info} />
-              )}
+              render={props => <Estimates {...props} student={studentInfo} />}
             />
             <Route
               path="/activities"
               ref={this.child}
-              render={props => (
-                <Activities {...props} student={this.state.student_info} />
-              )}
+              render={props => <Activities {...props} student={studentInfo} />}
             />
             <Route
               path="/results"
-              render={props => (
-                <Results {...props} student={this.state.student_info} />
-              )}
+              render={props => <Results {...props} student={studentInfo} />}
             />
             <Route component={Errors} />
           </Switch>

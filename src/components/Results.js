@@ -1,6 +1,6 @@
 import React from "react";
 import { Chart } from "react-google-charts";
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from "@material-ui/core/CircularProgress";
 import axios from "axios";
 import EstimateDispatcher from "../dispatchers/EstimateDispatcher";
 import ActivityDispatcher from "../dispatchers/ActivityDispatcher";
@@ -12,7 +12,7 @@ const devMode = true;
 class Results extends React.Component {
   constructor(props) {
     super(props);
-//    studentInfo = props.student;
+    //    studentInfo = props.student;
     this.state = {
       estimateList: null,
       activityList: null,
@@ -22,12 +22,18 @@ class Results extends React.Component {
 
   render() {
     if (this.state.loading) {
-      return <div style={{
-        position: 'absolute', left: '50%', top: '50%',
-        transform: 'translate(-50%, -50%)'
-      }}>
-        <CircularProgress/>
-      </div>
+      return (
+        <div
+          style={{
+            position: "absolute",
+            left: "50%",
+            top: "50%",
+            transform: "translate(-50%, -50%)"
+          }}
+        >
+          <CircularProgress />
+        </div>
+      );
     }
     let chartData = [];
     chartData.push([`activity`, `Estimated`, `Actual`]);
@@ -47,7 +53,7 @@ class Results extends React.Component {
           width={"100%"} //500px
           // height={'60%'}  // 300px
           chartType="BarChart"
-//
+          //
           //          loader={<CircularProgress />}
           data={chartData}
           options={{
@@ -73,9 +79,13 @@ class Results extends React.Component {
     console.log(this.props.student);
     console.log(`student_id:${this.props.student.student_id}`);
     try {
-      let estPromise = await EstimateDispatcher.getEstimatesPerStudent(this.props.student.student_id);
-      let actPromise = await ActivityDispatcher.getActivitiesPerStudent(this.props.student.student_id);
-      if(devMode) {
+      let estPromise = await EstimateDispatcher.getEstimatesPerStudent(
+        this.props.student.student_id
+      );
+      let actPromise = await ActivityDispatcher.getActivitiesPerStudent(
+        this.props.student.student_id
+      );
+      if (devMode) {
         estPromise = ResultTestClass.getEstimatesPromise(this.props.student);
         actPromise = ResultTestClass.getActivitiesPromise(this.props.student);
       }
@@ -86,41 +96,41 @@ class Results extends React.Component {
         loading: false
       };
       this.setState(localState);
-      if(actList.length > 2)
-      {
+      if (actList.length > 2) {
         let url = `https://https://qlti.cals-learn.org/grade/passback`;
-        if(devMode)
+        if (devMode)
           url = `https://https://qlti.devcals-learn.org/grade/passback`;
         // fire callback
-          axios.post(
-          url,
-          {
+        axios
+          .post(url, {
             gradeid: this.props.student.gradeid,
-            grade: "1.0",
-//            callbackurl: environment.qlti.callbackUrl
-          }
-        ) .then(function (response) {
+            grade: "1.0"
+            //            callbackurl: environment.qlti.callbackUrl
+          })
+          .then(function(response) {
             // handle success
             console.log(`success response:`);
             console.log(response);
           })
-          .catch(function (error) {
-          // if (err.error instanceof Error) {
-          //   // A client-side or network error occurred. Handle it accordingly.
-          //   console.error('An error occurred:', err.error.message);
-          // } else {
+          .catch(function(error) {
+            // if (err.error instanceof Error) {
+            //   // A client-side or network error occurred. Handle it accordingly.
+            //   console.error('An error occurred:', err.error.message);
+            // } else {
             // The backend returned an unsuccessful response code.
             // The response body may contain clues as to what went wrong,
-//          console.error(`Backend returned code ${error.status}, body was: ${error.error}`);
+            //          console.error(`Backend returned code ${error.status}, body was: ${error.error}`);
             console.log(`failure error:`);
             console.log(error);
-            console.error(`Backend returned code ${error.status}, body was: ${error.error}`);
-          // }
+            console.error(
+              `Backend returned code ${error.status}, body was: ${error.error}`
+            );
+            // }
           })
-          .then(function () {
-              // finally
-              console.log(`finally hit`);
-            })          ;
+          .then(function() {
+            // finally
+            console.log(`finally hit`);
+          });
       }
     } catch (e) {
       console.error(e);
@@ -147,7 +157,6 @@ class Results extends React.Component {
     }
     return [activity, estimate, actual / hit];
   };
-
 }
 export default Results;
 
@@ -162,14 +171,22 @@ const estimateDay = new Date("April 09, 2019 00:00:00").getTime();
 
 class ResultTestClass {
   static getEstimatesPromise(student) {
-    console.debug(`getEstimatePromise for student id: ${student.lms_id} email: ${student.email} gradeid: ${student.gradeid}`);
+    console.debug(
+      `getEstimatePromise for student id: ${student.lms_id} email: ${
+        student.email
+      } gradeid: ${student.gradeid}`
+    );
     return new Promise(resolve => {
       setTimeout(() => resolve(ResultTestClass.getEstimates()), 2000);
     });
   }
 
   static getActivitiesPromise(student) {
-    console.debug(`getActivitiesPromise for student id: ${student.lms_id} email: ${student.email} gradeid: ${student.gradeid}`);
+    console.debug(
+      `getActivitiesPromise for student id: ${student.lms_id} email: ${
+        student.email
+      } gradeid: ${student.gradeid}`
+    );
     return new Promise(resolve => {
       setTimeout(() => resolve(ResultTestClass.getActivities()), 3000);
     });

@@ -13,8 +13,18 @@ async function validateCreateActivity(activity) {
   return checkCreateActivity;
 }
 
+async function getActivitiesPerStudent(student_id) {
+  if (student_id) {
+    var getActivitiesPerStudentDis = await ActivityDispatcher.getActivitiesPerStudent(
+      student_id
+    );
+  }
+  return getActivitiesPerStudentDis;
+}
+
 const ActivityController = {
-  validateCreateActivity: validateCreateActivity
+  validateCreateActivity: validateCreateActivity,
+  getActivitiesPerStudent: getActivitiesPerStudent
 };
 
 export default ActivityController;
